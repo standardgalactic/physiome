@@ -1,0 +1,1361 @@
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2026.7.24)  1 AUG 2026 19:42
+ restricted system commands enabled.
+**physiome.tex
+(./physiome.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+Lua module: luaotfload 2023-08-31 3.26 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 2.76 ConTeXt Lua libraries -- extended c
+ollection.
+luaotfload | conf : Root cache directory is "/home/bonobo/.texlive2023/texmf-var
+/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-08-19.lua" from kpse-res
+olved path "/usr/share/texlive/texmf-dist/tex/luatex/luaotfload/fontloader-2023-
+08-19.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.133
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "/home/bonobo/.texlive2023/texmf-var
+/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'. (/usr/share/texlive/tex
+mf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+luaotfload | db : Font names database loaded from /home/bonobo/.texlive2023/texm
+f-var/luatex-cache/generic/names/luaotfload-names.luc.gz)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen139
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2024-01-22 L3 programming layer (loader) 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
+File: l3backend-luatex.def 2024-01-04 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count193
+Inserting `l3color' in `luaotfload.parse_color'.
+\l__pdf_internal_box=\box51
+))
+Package: xparse 2023-10-10 L3 Experimental document command parser
+)
+Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
+Lua module: fontspec 2022/01/15 2.8a Font selection for XeLaTeX and LuaLaTeX
+(/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+Package: fontspec-luatex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaT
+eX
+\l__fontspec_script_int=\count194
+\l__fontspec_language_int=\count195
+\l__fontspec_strnum_int=\count196
+\l__fontspec_tmp_int=\count197
+\l__fontspec_tmpa_int=\count198
+\l__fontspec_tmpb_int=\count199
+\l__fontspec_tmpc_int=\count266
+\l__fontspec_em_int=\count267
+\l__fontspec_emdef_int=\count268
+\l__fontspec_strong_int=\count269
+\l__fontspec_strongdef_int=\count270
+\l__fontspec_tmpa_dim=\dimen140
+\l__fontspec_tmpb_dim=\dimen141
+\l__fontspec_tmpc_dim=\dimen142
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+luaotfload | cache : Lookup cache loaded from /home/bonobo/.texlive2023/texmf-va
+r/luatex-cache/generic/names/luaotfload-lookup-cache.luc.
+
+Package fontspec Info: Font family 'TeXGyrePagella(0)' created for font 'TeX
+(fontspec)             Gyre Pagella' with options [Ligatures=TeX].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella:mode=node;script=latn;language=dflt;+
+tlig;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella:mode=node;script=latn;language=dflt;+
+tlig;+smcp;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/B:mode=node;script=latn;language=dflt
+;+tlig;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/B:mode=node;script=latn;language=dflt
+;+tlig;+smcp;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/I:mode=node;script=latn;language=dflt
+;+tlig;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/I:mode=node;script=latn;language=dflt
+;+tlig;+smcp;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/BI:mode=node;script=latn;language=dfl
+t;+tlig;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"TeXGyrePagella/BI:mode=node;script=latn;language=dfl
+t;+tlig;+smcp;"
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count271
+\Gm@cntv=\count272
+\c@Gm@tempcnt=\count273
+\Gm@bindingoffset=\dimen143
+\Gm@wd@mp=\dimen144
+\Gm@odd@mp=\dimen145
+\Gm@even@mp=\dimen146
+\Gm@layoutwidth=\dimen147
+\Gm@layoutheight=\dimen148
+\Gm@layouthoffset=\dimen149
+\Gm@layoutvoffset=\dimen150
+\Gm@dimlist=\toks18
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen151
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen152
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count274
+LaTeX Info: Redefining \frac on input line 236.
+\uproot@=\count275
+\leftroot@=\count276
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count277
+\DOTSCASE@=\count278
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box52
+\strutbox@=\box53
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen153
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count279
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count280
+\dotsspace@=\muskip16
+\c@parentequation=\count281
+\dspbrk@lvl=\count282
+\tag@help=\toks20
+\row@=\count283
+\column@=\count284
+\maxfields@=\count285
+\andhelp@=\toks21
+\eqnshift@=\dimen154
+\alignsep@=\dimen155
+\tagshift@=\dimen156
+\tagwidth@=\dimen157
+\totwidth@=\dimen158
+\lineht@=\dimen159
+\@envbody=\toks22
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks24
+\thm@bodyfont=\toks25
+\thm@headfont=\toks26
+\thm@notefont=\toks27
+\thm@headpunct=\toks28
+\thm@preskip=\skip53
+\thm@postskip=\skip54
+\thm@headsep=\skip55
+\dth@everypar=\toks29
+)
+\c@proposition=\count286
+
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen160
+\lightrulewidth=\dimen161
+\cmidrulewidth=\dimen162
+\belowrulesep=\dimen163
+\belowbottomsep=\dimen164
+\aboverulesep=\dimen165
+\abovetopsep=\dimen166
+\cmidrulesep=\dimen167
+\cmidrulekern=\dimen168
+\defaultaddspace=\dimen169
+\@cmidla=\count287
+\@cmidlb=\count288
+\@aboverulesep=\dimen170
+\@belowrulesep=\dimen171
+\@thisruleclass=\count289
+\@lastruleclass=\count290
+\@thisrulewidth=\dimen172
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
+\LTleft=\skip56
+\LTright=\skip57
+\LTpre=\skip58
+\LTpost=\skip59
+\LTchunksize=\count291
+\LTcapwidth=\dimen173
+\LT@head=\box54
+\LT@firsthead=\box55
+\LT@foot=\box56
+\LT@lastfoot=\box57
+\LT@gbox=\box58
+\LT@cols=\count292
+\LT@rows=\count293
+\c@LT@tables=\count294
+\c@LT@chunks=\count295
+\LT@p@ftn=\toks30
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen174
+\ar@mcellbox=\box59
+\extrarowheight=\dimen175
+\NC@list=\toks31
+\extratabsurround=\skip60
+\backup@length=\skip61
+\ar@cellbox=\box60
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+\pdftexcmds@toks=\toks32
+))
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count296
+)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count297
+)
+\@linkdim=\dimen176
+\Hy@linkcounter=\count298
+\Hy@pagecounter=\count299
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count300
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4062.
+Package hyperref Info: Hyper figures OFF on input line 4179.
+Package hyperref Info: Link nesting OFF on input line 4184.
+Package hyperref Info: Hyper index ON on input line 4187.
+Package hyperref Info: Plain pages OFF on input line 4194.
+Package hyperref Info: Backreferencing OFF on input line 4199.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4446.
+\c@Hy@tempcnt=\count301
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4784.
+\XeTeXLinkMargin=\dimen177
+
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count302
+\Field@Width=\dimen178
+\Fld@charsize=\dimen179
+Package hyperref Info: Hyper figures OFF on input line 6063.
+Package hyperref Info: Link nesting OFF on input line 6068.
+Package hyperref Info: Hyper index ON on input line 6071.
+Package hyperref Info: backreferencing OFF on input line 6078.
+Package hyperref Info: Link coloring ON on input line 6081.
+Package hyperref Info: Link coloring with OCG OFF on input line 6088.
+Package hyperref Info: PDF/A mode OFF on input line 6093.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count303
+\c@Item=\count304
+\c@Hfootnote=\count305
+)
+Package hyperref Info: Driver (autodetected): hluatex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hluatex.def
+File: hluatex.def 2024-01-20 v7.01h Hyperref driver for luaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count306
+\c@bookmark@seq@number=\count307
+
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip62
+)
+(./physiome.aux)
+\openout1 = physiome.aux
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
+2.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+
+Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
+(fontspec)             this).
+
+\symlegacymaths=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 22.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 22.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 22.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 22.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 22.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 22.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 22.
+LaTeX Font Info:    Redeclaring math accent \check on input line 22.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 22.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 22.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 22.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 22.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 22.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 22.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/TeXGyrePagella(0)/m/n on input line 
+22.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 22.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/TeXGyrePagella(0)/m/n on input line
+ 22.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  TU/TeXGyrePagella(0)/m/n --> TU/TeXGyrePagella(0)/m/n o
+n input line 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/TeXGyrePagella(0)/m/it on input lin
+e 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/TeXGyrePagella(0)/b/n on input line
+ 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/TeXGyrePagella(0)/m/n --> TU/TeXGyrePagella(0)/b/n o
+n input line 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/TeXGyrePagella(0)/b/it on input li
+ne 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 22.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 22.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: luatex
+*geometry* verbose mode - [ preamble ] result:
+* driver: luatex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(83.11005pt, 448.0749pt, 83.11005pt)
+* v-part:(T,H,B)=(83.11005pt, 628.7499pt, 83.11005pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=448.0749pt
+* \textheight=628.7499pt
+* \oddsidemargin=10.84006pt
+* \evensidemargin=10.84006pt
+* \topmargin=-26.15994pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: luatex.def on input line 149.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/luatex.def
+File: luatex.def 2022/09/22 v1.2d Graphics/color driver for luatex
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count308
+\scratchdimen=\dimen180
+\scratchbox=\box61
+\nofMPsegments=\count309
+\nofMParguments=\count310
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count311
+\MPscratchDim=\dimen181
+\MPnumerator=\count312
+\makeMPintoPDFobject=\count313
+\everyMPtoPDFconversion=\toks34
+)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+Package hyperref Info: Link coloring ON on input line 22.
+
+(./physiome.out) (./physiome.out)
+\@outlinefile=\write3
+
+\openout3 = physiome.out
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 4699) in paragraph at lines 56--56
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Evolution-first: ev-ery vari-able
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 De-tected vi-o-la-tions de-ter-mine
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--58
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 One large, mu-tu-ally cou-pled
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 59--59
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 A sin-gle global timestep in-te-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--60
+\TU/TeXGyrePagella(0)/m/n/10.95 phys-i-o-log-i-cally in-ter-est-ing is
+ []
+
+
+Underfull \hbox (badness 4927) in paragraph at lines 60--61
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Vari-ables evolve only through
+ []
+
+
+Underfull \hbox (badness 1681) in paragraph at lines 60--61
+\TU/TeXGyrePagella(0)/m/n/10.95 sub-sys-tem con-tin-u-a-tions or re-
+ []
+
+
+Overfull \hbox (16.87671pt too wide) in paragraph at lines 71--72
+\TU/TeXGyrePagella(0)/m/n/10.95 iome’s units of com-po-si-tion are dif-fer-ent
+ in kind, not merely in name: an \TU/lmtt/m/n/10.95 AdmissibilityBoundary\TU/Te
+XGyrePagella(0)/m/n/10.95 ,
+ []
+
+[3] [4] [5] [6]
+Overfull \hbox (34.38208pt too wide) in paragraph at lines 115--116
+\TU/TeXGyrePagella(0)/m/n/10.95 vis-i-ble to any-one au-dit-ing the op-er-a-tor reg-istry, whereas a read of \TU/lmtt/m/n/10.95 state.hepatic.clotting_factors
+ []
+
+[7]
+! Undefined control sequence.
+l.128 ...ction $o_k : \mathcal S \rightarrow \mathbb
+                                                   R$, implemented as a look...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.128 ...issible set $\mathcal B_k \subseteq \mathbb
+                                                   R$, currently always a cl...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (107.25424pt too wide) in paragraph at lines 128--129
+\TU/TeXGyrePagella(0)/m/n/10.95 named ob-serv-able vari-ables ex-posed across al
+l sub-sys-tems (for ex-am-ple \TU/lmtt/m/n/10.95 cardiovascular.mean_arterial_pr
+essure
+ []
+
+[8] [9]
+Overfull \hbox (26.37689pt too wide) in paragraph at lines 155--156
+\TU/TeXGyrePagella(0)/m/it/10.95 size $\OML/cmm/m/it/10.95 v[]$ \TU/TeXGyrePage
+lla(0)/m/it/10.95 and it-er-a-tion bud-get \TU/lmtt/m/it/10.95 max_iterations\T
+U/TeXGyrePagella(0)/m/it/10.95 , the dis-patch loop per-forms at most $[]\OT1/c
+mr/m/n/10.95 ([]\OML/cmm/m/it/10.95 ; v[]\OT1/cmr/m/n/10.95 )$
+ []
+
+
+Overfull \hbox (9.59857pt too wide) in paragraph at lines 158--159
+\TU/TeXGyrePagella(0)/m/n/10.95 ex-actly one el-e-ment per com-pleted round and the loop is ad-di-tion-ally capped at \TU/lmtt/m/n/10.95 max_iterations
+ []
+
+[10] [11]
+Overfull \hbox (2.65402pt too wide) in paragraph at lines 183--184
+[][]\TU/TeXGyrePagella(0)/b/n/10.95 Propo-si-tion 3 \TU/TeXGyrePagella(0)/m/n/1
+0.95 (En-gine lo-cal-ity)\TU/TeXGyrePagella(0)/b/n/10.95 . []\TU/TeXGyrePagella
+(0)/m/it/10.95 Let a sub-sys-tem be any type $\OML/cmm/m/it/10.95 S$ \TU/TeXGyr
+ePagella(0)/m/it/10.95 im-ple-ment-ing \TU/lmtt/m/it/10.95 ObservableBoundary
+ []
+
+[12]
+Overfull \hbox (44.44144pt too wide) in paragraph at lines 195--197
+\TU/TeXGyrePagella(0)/m/n/10.95 read-only de-pen-dency (not a graph edge, since it does not write) of \TU/lmtt/m/n/10.95 hematologic.coagulation_index\TU/TeXGyrePagella(0)/m/n/10.95 
+’s
+ []
+
+
+Overfull \hbox (31.92188pt too wide) in paragraph at lines 195--197
+\TU/TeXGyrePagella(0)/m/n/10.95 not yet im-ple-mented is the phys-i-o-log-i-cal renin-angiotensin-aldosterone loop, $[] \OMS/cmsy/m/n/10.95 ! [] !
+ []
+
+
+Overfull \hbox (2.91174pt too wide) in paragraph at lines 195--197
+\TU/TeXGyrePagella(0)/m/n/10.95 never reads or writes \TU/lmtt/m/n/10.95 endocri
+ne.aldosterone \TU/TeXGyrePagella(0)/m/n/10.95 or \TU/lmtt/m/n/10.95 cardiovascu
+lar.mean_arterial_pressure\TU/TeXGyrePagella(0)/m/n/10.95 .
+ []
+
+! Undefined control sequence.
+l.200 ... j$ whenever $W_i \cap F_j \neq \varnothing
+                                                  $, subsystem $i$'s repairs...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.200 ... dependency, $R_i \cap F_j \neq \varnothing
+                                                  $ with no corresponding wr...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.200 ...ashed edge, $\text{hepatic} \dashrightarrow
+                                                   \text{hematologic}$; both...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[13]
+Overfull \hbox (16.1722pt too wide) in paragraph at lines 204--205
+\TU/TeXGyrePagella(0)/m/n/10.95 matches a \TU/lmtt/m/n/10.95 gastric_ph \TU/TeX
+GyrePagella(0)/m/n/10.95 vi-o-la-tion, since \TU/lmtt/m/n/10.95 gi::motility_cor
+rection \TU/TeXGyrePagella(0)/m/n/10.95 matches only \TU/lmtt/m/n/10.95 motility
+_index\TU/TeXGyrePagella(0)/m/n/10.95 ;
+ []
+
+
+Overfull \hbox (33.77977pt too wide) in paragraph at lines 204--205
+\TU/lmtt/m/n/10.95 cardiovascular.heart_rate \TU/TeXGyrePagella(0)/m/n/10.95 is in the same po-si-tion, con-strained but un-ad-dressed, since \TU/lmtt/m/n/10.95 baroreflex
+ []
+
+! Undefined control sequence.
+l.208 ...his with $\mathcal B_k(s) \subseteq \mathbb
+                                                   R$, an admissible set tha...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[14]
+Overfull \hbox (12.64996pt too wide) in paragraph at lines 217--218
+\TU/TeXGyrePagella(0)/m/n/10.95 The cur-rent im-ple-men-ta-tion cov-ers eleven 
+sub-sys-tems, each con-tribut-ing an ad-mis-si-bil-ity bound-
+ []
+
+
+Underfull \hbox (badness 1205) in paragraph at lines 221--221
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Ob-serv-able vari-ables (ad-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Car-dio-vas-cu-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 mean ar-te-rial pres-sure
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--225
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 GFR (90--120 mL/min),
+ []
+
+
+Underfull \hbox (badness 5374) in paragraph at lines 225--225
+\TU/TeXGyrePagella(0)/m/n/10.95 plasma sodium (135--145
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--225
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 RAAS-style re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
+\TU/TeXGyrePagella(0)/m/n/10.95 al-bu-min (3.5--5.0 g/dL),
+ []
+
+
+Underfull \hbox (badness 7851) in paragraph at lines 226--226
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 urea-cycle up-reg-u-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 227--227
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Gas-troin-testi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
+\TU/TeXGyrePagella(0)/m/n/10.95 parasym-pa-thetic tone
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 au-to-nomic re-bal-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--229
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 WBC count (4.5--11.0
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--229
+\OMS/cmsy/m/n/10.95 \OT1/cmr/m/n/10.95 10[]/\OML/cmm/m/it/10.95 $\TU/TeXGyreP
+agella(0)/m/n/10.95 L), CRP (0--10
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--229
+\TU/TeXGyrePagella(0)/m/n/10.95 mg/L), cy-tokine level
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--230
+\TU/TeXGyrePagella(0)/m/n/10.95 platelet count (150--400
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--230
+\OMS/cmsy/m/n/10.95 \OT1/cmr/m/n/10.95 10[]/\OML/cmm/m/it/10.95 $\TU/TeXGyreP
+agella(0)/m/n/10.95 L), co-ag-u-la-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--230
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 co-ag-u-la-tion re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--230
+\TU/TeXGyrePagella(0)/m/n/10.95 sponse, ery-thro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--232
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 blood glu-cose (70--140
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--232
+\TU/TeXGyrePagella(0)/m/n/10.95 mg/dL), lac-tate (0.5--2.2
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--233
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 blood pH (7.35--7.45),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--233
+\TU/TeXGyrePagella(0)/m/n/10.95 PaCO$[][]$ (35--45 mmHg),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 234--234
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 core tem-per-a-ture
+ []
+
+[15] [16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 271--271
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Lymph flow, in-ter-sti-tial fluid vol-ume,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--271
+\TU/TeXGyrePagella(0)/m/n/10.95 edema in-dex, lym-pho-cyte traf-fick-ing;
+ []
+
+
+Underfull \hbox (badness 8038) in paragraph at lines 271--271
+\TU/TeXGyrePagella(0)/m/n/10.95 ing, en-hance drainage, or re-dis-tribute
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Reads car-dio-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
+\TU/TeXGyrePagella(0)/m/n/10.95 vol-ume; in-flu-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
+\TU/TeXGyrePagella(0)/m/n/10.95 ences im-mune
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--272
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Mus-cu-loskele-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Turns ex-er-cise
+ []
+
+
+Underfull \hbox (badness 6316) in paragraph at lines 272--273
+\TU/TeXGyrePagella(0)/m/n/10.95 into a gen-uine
+ []
+
+
+Underfull \hbox (badness 2269) in paragraph at lines 274--274
+\TU/TeXGyrePagella(0)/m/n/10.95 associated phys-i-o-log-i-cal shifts, pla-cen-ta
+l
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 In-de-pen-dent
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+\TU/TeXGyrePagella(0)/m/n/10.95 sub-sys-tem
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+\TU/TeXGyrePagella(0)/m/n/10.95 with its own
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+\TU/TeXGyrePagella(0)/m/n/10.95 multi-week to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+\TU/TeXGyrePagella(0)/m/n/10.95 multi-month
+ []
+
+
+Underfull \hbox (badness 5431) in paragraph at lines 275--276
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Cou-ples tightly
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+\TU/TeXGyrePagella(0)/m/n/10.95 with en-docrine
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+\TU/TeXGyrePagella(0)/m/n/10.95 and hema-to-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--276
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Mi-cro-cir-cu-la-
+ []
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 276--276
+\TU/TeXGyrePagella(0)/m/n/10.95 gen ex-trac-tion, lo-cal au-toreg-u-la-tion, be-
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Reads car-dio-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 vas-cu-lar and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 res-pi-ra-tory;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 feeds tissue-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 level oxy-gen
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 de-liv-ery to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 ev-ery other
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+\TU/TeXGyrePagella(0)/m/n/10.95 organ-level
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 287--287
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Pul-monary
+ []
+
+
+Underfull \hbox (badness 5637) in paragraph at lines 287--287
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Alve-o-lar ventilation-perfusion match-ing,
+ []
+
+
+Underfull \hbox (badness 4036) in paragraph at lines 287--287
+\TU/TeXGyrePagella(0)/m/n/10.95 dead space, lung com-pli-ance, work of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Nephron seg-
+ []
+
+
+Underfull \hbox (badness 1888) in paragraph at lines 288--288
+\TU/TeXGyrePagella(0)/m/n/10.95 tion seg-ment by seg-ment, con-cen-tra-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Hypothalamic-pituitary-adrenal (CRH,
+ []
+
+
+Underfull \hbox (badness 2221) in paragraph at lines 289--289
+\TU/TeXGyrePagella(0)/m/n/10.95 ACTH, cor-ti-sol), hypothalamic-pituitary-
+ []
+
+
+Underfull \hbox (badness 1975) in paragraph at lines 289--289
+\TU/TeXGyrePagella(0)/m/n/10.95 pituitary-gonadal (GnRH, LH, FSH, sex
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
+\TU/TeXGyrePagella(0)/m/n/10.95 steroids), renin-angiotensin-aldosterone
+ []
+
+
+Underfull \hbox (badness 2229) in paragraph at lines 289--289
+\TU/TeXGyrePagella(0)/m/n/10.95 than the cur-rent renal-only place-holder,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 En-docrine,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
+\TU/TeXGyrePagella(0)/m/n/10.95 Re-nal, Car-dio-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 290--290
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Co-ag-u-la-tion
+ []
+
+
+Underfull \hbox (badness 6204) in paragraph at lines 290--290
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 The clot-ting cas-cade re-solved step-wise
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Adap-tive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
+\TU/TeXGyrePagella(0)/m/n/10.95 im-mune de-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--292
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Skin ther-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--292
+\TU/TeXGyrePagella(0)/m/n/10.95 moreg-u-la-tion
+ []
+
+
+Underfull \hbox (badness 3849) in paragraph at lines 292--292
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Sweat-ing, va-sodi-la-tion, vaso-con-stric-ti
+on,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--293
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Ther-mal, In-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--293
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Di-ges-tive
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Gas-troin-testi-nal,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 294--294
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Ner-vous sub-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Skele-tal re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--296
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Skele-tal, En-
+ []
+
+
+Underfull \hbox (badness 1478) in paragraph at lines 296--296
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Gut mi-cro-bial pop-u-la-tion dy-nam-ics and
+ []
+
+
+Underfull \hbox (badness 2426) in paragraph at lines 296--296
+\TU/TeXGyrePagella(0)/m/n/10.95 their metabolic and im-munomod-u-la-tory
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Gas-troin-testi-nal,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--297
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Phar-ma-coki-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--297
+\TU/TeXGyrePagella(0)/m/n/10.95 net-ics and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--297
+\TU/TeXGyrePagella(0)/m/n/10.95 phar-ma-co-dy-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 298--298
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 In-jury and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 298--298
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Dis-crete, large-magnitude per-tur-ba-tions
+ []
+
+
+Underfull \hbox (badness 3482) in paragraph at lines 298--298
+\TU/TeXGyrePagella(0)/m/n/10.95 (hem-or-rhage be-yond the cur-rent sin-gle
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\TU/TeXGyrePagella(0)/m/n/10.95 op-ment, and
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 299--299
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Slow, multi-year mod-u-la-tion of base-line
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Cross-cutting;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+\TU/TeXGyrePagella(0)/m/n/10.95 re-quires $\OMS/cmsy/m/n/10.95 B[]$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+\TU/TeXGyrePagella(0)/m/n/10.95 to be-come a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+\TU/TeXGyrePagella(0)/m/n/10.95 func-tion of
+ []
+
+[19] [20]
+Underfull \hbox (badness 10000) in paragraph at lines 310--310
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Cel-lu-lar
+ []
+
+
+Underfull \hbox (badness 4060) in paragraph at lines 310--310
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 ATP pro-duc-tion, mi-to-chon-drial ac-tiv-ity
+,
+ []
+
+
+Underfull \hbox (badness 1275) in paragraph at lines 310--310
+\TU/TeXGyrePagella(0)/m/n/10.95 ox-ida-tive stress, re-ac-tive oxy-gen species,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--311
+\TU/TeXGyrePagella(0)/m/n/10.95 a multi-scale
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Gene reg-u-la-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--312
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Longest-horizon
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--312
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 In-tra-cel-lu-lar cas-cades un-der-ly-ing the
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Would let a
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+\TU/TeXGyrePagella(0)/m/n/10.95 2 op-er-a-tor’s
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+\TU/TeXGyrePagella(0)/m/n/10.95 eled quan-tity
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+\TU/TeXGyrePagella(0)/m/n/10.95 rather than
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+\TU/TeXGyrePagella(0)/m/n/10.95 an as-serted
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 313--313
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Mi-to-chon-drial
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Cou-ples most
+ []
+
+
+Underfull \hbox (badness 4779) in paragraph at lines 314--314
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Tis-sue re-mod-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--314
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Ex-tra-cel-lu-lar ma-trix turnover un-der-ly-
+
+ []
+
+
+Underfull \hbox (badness 1466) in paragraph at lines 314--314
+\TU/TeXGyrePagella(0)/m/n/10.95 ing organ-level re-pair op-er-a-tors such as
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 314--315
+[]|\TU/TeXGyrePagella(0)/m/n/10.95 Cou-ples most
+ []
+
+
+Underfull \hbox (badness 1087) in paragraph at lines 314--315
+\TU/TeXGyrePagella(0)/m/n/10.95 di-rectly to hep-
+ []
+
+
+Overfull \hbox (3.8644pt too wide) in paragraph at lines 320--321
+\TU/TeXGyrePagella(0)/m/n/10.95 tural ex-ten-sion rather than a new sub-sys-tem in the sense of Ta-bles [][]3[][]--[][]4[][]: it re-quires \TU/lmtt/m/n/10.95 Continuation
+ []
+
+[21] [22]
+Overfull \hbox (14.60632pt too wide) in paragraph at lines 331--332
+\TU/TeXGyrePagella(0)/m/n/10.95 the same for blood glu-cose, \TU/lmtt/m/n/10.95
+ coagulation_response \TU/TeXGyrePagella(0)/m/n/10.95 for the co-ag-u-la-tion in
+-dex, \TU/lmtt/m/n/10.95 thermoregulation
+ []
+
+[23] [24] [25] (./physiome.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+Package rerunfilecheck Info: File `physiome.out' has not changed.
+(rerunfilecheck)             Checksum: 0C3B77AA8793CA455819EE836684D3A6;5427.
+)
+
+Here is how much of LuaTeX's memory you used:
+ 12415 strings out of 476553
+ 125129,1977958 words of node,token memory allocated
+ 580 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 20 attribute, 60 glue_spec
+, 20 attribute_list, 1 write nodes
+   avail lists: 2:703,3:372,4:64,5:1197,6:105,7:10672,8:55,9:934,10:22,11:1071
+ 34158 multiletter control sequences out of 65536+600000
+ 62 fonts using 8563935 bytes
+ 79i,14n,89p,2580b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf/fonts/opentype/public/lm/lmmono10-italic.otf></usr/share/texmf
+/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf/fonts/opentype/
+public/tex-gyre/texgyrepagella-italic.otf></usr/share/texmf/fonts/opentype/publi
+c/tex-gyre/texgyrepagella-bold.otf></usr/share/texmf/fonts/opentype/public/tex-g
+yre/texgyrepagella-regular.otf></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on physiome.pdf (25 pages, 224092 bytes).
+
+PDF statistics: 413 PDF objects out of 1000 (max. 8388607)
+ 358 compressed objects within 4 object streams
+ 66 named destinations out of 1000 (max. 131072)
+ 225 words of extra memory for PDF output out of 10000 (max. 100000000)
+

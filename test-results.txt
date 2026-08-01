@@ -1,0 +1,46 @@
+== cargo build ==
+
+== cargo run --example infection_scenario ==
+t=0.0  wbc=7.00  cytokine=0.050  core_temp=37.00
+
+--- repair events (10530) ---
+  t=  900.0  immune_resolution         target=immune::wbc_count  severity=0.077
+  t= 1200.0  immune_resolution         target=immune::wbc_count  severity=0.154
+  t= 1500.0  immune_resolution         target=immune::wbc_count  severity=0.231
+  t= 1500.0  immune_resolution         target=immune::cytokine_level  severity=0.167
+  t= 1500.0  fever_response            target=immune::cytokine_level  severity=0.167
+  t= 1500.0  immune_resolution         target=immune::wbc_count  severity=0.077
+  ... (10524 more events)
+
+--- final state, t=14400s (4.0h) ---
+wbc_count       = 10.50  (baseline 7.00, admissible 4.5-11.0)
+cytokine_level  = 0.270  (baseline 0.05, admissible 0.0-0.3)
+core_temp       = 37.58  (baseline 37.00, admissible 36.5-37.5)
+crp             = 9.40  (baseline 1.00, admissible 0.0-10.0)
+
+remaining unresolved violations: 1
+  thermal::core_temp  severity=0.075
+
+fever_response fired 65 times, immune_resolution fired 180 times
+
+== cargo test ==
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test baseline_state_is_fully_admissible ... ok
+test pathogen_challenge_raises_core_temp_via_cytokine_coupling ... ok
+test no_pathogen_load_keeps_state_near_baseline ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+Done. Try 'cargo run --example infection_scenario' on its own to re-run just the scenario.
