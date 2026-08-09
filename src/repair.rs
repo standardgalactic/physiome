@@ -158,6 +158,7 @@ pub fn step_until(
     violations_after: impl Fn(&PhysiologicalState) -> Vec<Violation>,
 ) -> (PhysiologicalState, Vec<RepairEvent>) {
     let mut log = Vec::new();
+    let mut last_fire: Vec<f64> = continuations.iter().map(|_| state.t).collect();
     let mut next_fire: Vec<f64> = continuations
         .iter()
         .map(|c| state.t + c.interval(&state))
@@ -171,9 +172,10 @@ pub fn step_until(
         else {
             break;
         };
-        let dt = (next_t - state.t).max(0.0);
+        let dt = (next_t - last_fire[idx]).max(0.0);
         state = continuations[idx].advance(&state, dt, inputs, perturbation);
         state.t = next_t;
+        last_fire[idx] = next_t;
         next_fire[idx] = state.t + continuations[idx].interval(&state);
 
         let violations = violations_after(&state);
@@ -196,6 +198,7 @@ pub fn step_until_hierarchical(
     violations_after: impl Fn(&PhysiologicalState) -> Vec<Violation>,
 ) -> (PhysiologicalState, Vec<RepairEvent>) {
     let mut log = Vec::new();
+    let mut last_fire: Vec<f64> = continuations.iter().map(|_| state.t).collect();
     let mut next_fire: Vec<f64> = continuations
         .iter()
         .map(|c| state.t + c.continuation.interval(&state))
@@ -214,11 +217,12 @@ pub fn step_until_hierarchical(
             break;
         };
 
-        let dt = (next_t - state.t).max(0.0);
+        let dt = (next_t - last_fire[idx]).max(0.0);
         state = continuations[idx]
             .continuation
             .advance(&state, dt, inputs, perturbation);
         state.t = next_t;
+        last_fire[idx] = next_t;
         next_fire[idx] = state.t + continuations[idx].continuation.interval(&state);
 
         let violations = violations_after(&state);
