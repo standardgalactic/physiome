@@ -56,9 +56,12 @@ impl Continuation for EndocrineClock {
         &self,
         state: &PhysiologicalState,
         _dt: f64,
-        _inputs: &Inputs,
+        inputs: &Inputs,
         _perturbation: &Perturbation,
     ) -> PhysiologicalState {
-        state.clone()
+        let mut next = state.clone();
+        next.endocrine.aldosterone += 0.6 * inputs.exogenous_angiotensin_ii;
+        next.endocrine.aldosterone += (10.0 - next.endocrine.aldosterone) * 0.05;
+        next
     }
 }

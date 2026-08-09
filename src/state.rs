@@ -57,6 +57,8 @@ impl PhysiologicalState {
                 gfr: 100.0,
                 plasma_sodium: 140.0,
                 plasma_volume: 5.0,
+                functioning_mass: 1.0,
+                perceived_perfusion_pressure: 90.0,
             },
             hepatic: HepaticState {
                 bilirubin: 0.6,
@@ -138,7 +140,7 @@ impl PhysiologicalState {
 pub fn all_violations(state: &PhysiologicalState) -> Vec<Violation> {
     collect_violations(vec![
         detect_violations_for(&state.cardiovascular),
-        detect_violations_for(&state.renal),
+        detect_violations_for_stateful(&state.renal, &state.renal),
         detect_violations_for(&state.hepatic),
         detect_violations_for(&state.gi),
         detect_violations_for(&state.nervous),
