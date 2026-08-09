@@ -12,6 +12,22 @@ echo "== cargo run --example infection_scenario =="
 cargo run --example infection_scenario
 
 echo
+echo "== cargo run --example hemorrhage_scenario =="
+cargo run --example hemorrhage_scenario
+
+echo
+echo "== cargo run --example heat_stress_scenario =="
+cargo run --example heat_stress_scenario
+
+echo
+echo "== cargo run --example metabolic_challenge_scenario =="
+cargo run --example metabolic_challenge_scenario
+
+echo
+echo "== cargo run --example endocrine_stress_scenario =="
+cargo run --example endocrine_stress_scenario
+
+echo
 echo "== cargo test =="
 cargo test
 

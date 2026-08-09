@@ -1,13 +1,13 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct HematologicState {
-    pub hemoglobin: f64,       // g/dL
-    pub platelet_count: f64,   // x10^3/uL
+    pub hemoglobin: f64,        // g/dL
+    pub platelet_count: f64,    // x10^3/uL
     pub coagulation_index: f64, // relative, 1.0 = normal INR-equivalent
 }
 
@@ -53,6 +53,10 @@ pub fn coagulation_response() -> RepairOp {
         name: "coagulation_response",
         applies_to: |v| v.subsystem == "hematologic" && v.variable == "coagulation_index",
         apply: coagulation_response_apply,
+        writes: &[
+            "hematologic.coagulation_index",
+            "hematologic.platelet_count",
+        ],
     }
 }
 
@@ -70,6 +74,7 @@ pub fn erythropoiesis() -> RepairOp {
         name: "erythropoiesis",
         applies_to: |v| v.subsystem == "hematologic" && v.variable == "hemoglobin",
         apply: erythropoiesis_apply,
+        writes: &["hematologic.hemoglobin"],
     }
 }
 
@@ -83,7 +88,13 @@ impl Continuation for HematologicClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         300.0 // 5 min
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         if inputs.hemorrhage_rate > 0.0 {
             next.hematologic.hemoglobin -= 0.02 * inputs.hemorrhage_rate;

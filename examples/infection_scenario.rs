@@ -7,7 +7,7 @@
 
 use physiome::repair::{Inputs, Perturbation};
 use physiome::state::all_violations;
-use physiome::{all_continuations, all_repair_ops, step_until, Continuation, PhysiologicalState};
+use physiome::{all_continuations, all_repair_ops, step_until, PhysiologicalState};
 
 fn main() {
     let state = PhysiologicalState::baseline();
@@ -25,10 +25,7 @@ fn main() {
 
     let ops = all_repair_ops();
     let clocks = all_continuations();
-    let continuations: Vec<&dyn Continuation> = vec![
-        &clocks.0, &clocks.1, &clocks.2, &clocks.3, &clocks.4, &clocks.5, &clocks.6, &clocks.7,
-        &clocks.8, &clocks.9, &clocks.10,
-    ];
+    let continuations = clocks.as_vec();
 
     // 4 simulated hours, in seconds.
     let horizon = 4.0 * 3600.0;
@@ -38,6 +35,7 @@ fn main() {
         &continuations,
         &ops,
         &inputs,
+        &_perturbation,
         horizon,
         20, // max repair iterations per admissibility check
         all_violations,
@@ -54,12 +52,17 @@ fn main() {
         }
         if fever_events + resolution_events <= 6 {
             println!(
-                "  t={:>7.1}  {:<24}  target={}::{}  severity={:.3}",
+                "  t={:>7.1}  {:<24}  target={}::{}  severity={:.3}{}",
                 event.t,
                 event.op_name,
                 event.target.subsystem,
                 event.target.variable,
-                event.target.severity
+                event.target.severity,
+                if event.skipped_due_to_conflict {
+                    "  [skipped-conflict]"
+                } else {
+                    ""
+                }
             );
         }
     }
@@ -67,16 +70,35 @@ fn main() {
         println!("  ... ({} more events)", log.len() - 6);
     }
 
-    println!("\n--- final state, t={:.0}s ({:.1}h) ---", final_state.t, final_state.t / 3600.0);
-    println!("wbc_count       = {:.2}  (baseline 7.00, admissible 4.5-11.0)", final_state.immune.wbc_count);
-    println!("cytokine_level  = {:.3}  (baseline 0.05, admissible 0.0-0.3)", final_state.immune.cytokine_level);
-    println!("core_temp       = {:.2}  (baseline 37.00, admissible 36.5-37.5)", final_state.thermal.core_temp);
-    println!("crp             = {:.2}  (baseline 1.00, admissible 0.0-10.0)", final_state.immune.crp);
+    println!(
+        "\n--- final state, t={:.0}s ({:.1}h) ---",
+        final_state.t,
+        final_state.t / 3600.0
+    );
+    println!(
+        "wbc_count       = {:.2}  (baseline 7.00, admissible 4.5-11.0)",
+        final_state.immune.wbc_count
+    );
+    println!(
+        "cytokine_level  = {:.3}  (baseline 0.05, admissible 0.0-0.3)",
+        final_state.immune.cytokine_level
+    );
+    println!(
+        "core_temp       = {:.2}  (baseline 37.00, admissible 36.5-37.5)",
+        final_state.thermal.core_temp
+    );
+    println!(
+        "crp             = {:.2}  (baseline 1.00, admissible 0.0-10.0)",
+        final_state.immune.crp
+    );
 
     let remaining = all_violations(&final_state);
     println!("\nremaining unresolved violations: {}", remaining.len());
     for v in &remaining {
-        println!("  {}::{}  severity={:.3}", v.subsystem, v.variable, v.severity);
+        println!(
+            "  {}::{}  severity={:.3}",
+            v.subsystem, v.variable, v.severity
+        );
     }
 
     println!(

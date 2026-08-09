@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -51,6 +51,7 @@ pub fn autonomic_rebalance() -> RepairOp {
         name: "autonomic_rebalance",
         applies_to: |v| v.subsystem == "nervous",
         apply: autonomic_rebalance_apply,
+        writes: &["nervous.sympathetic_tone", "nervous.parasympathetic_tone"],
     }
 }
 
@@ -62,7 +63,13 @@ impl Continuation for NervousClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         2.0
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         // Exercise intensity is the clearest direct driver of
         // sympathetic tone among the current Inputs.

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -43,6 +43,7 @@ pub fn glucagon_response() -> RepairOp {
         name: "glucagon_response",
         applies_to: |v| v.subsystem == "metabolic" && v.variable == "blood_glucose",
         apply: glucagon_response_apply,
+        writes: &["metabolic.blood_glucose"],
     }
 }
 
@@ -52,7 +53,13 @@ impl Continuation for MetabolicClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         60.0 // 1 min
     }
-    fn advance(&self, state: &PhysiologicalState, dt: f64, _inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         // GI absorption feeds metabolic glucose here rather than in
         // gi.rs, keeping the cross-subsystem write on the consuming

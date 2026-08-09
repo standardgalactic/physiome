@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -20,10 +20,7 @@ pub fn boundary() -> AdmissibilityBoundary {
 
 impl ObservableBoundary for EndocrineState {
     fn observables(&self) -> HashMap<&'static str, f64> {
-        HashMap::from([
-            ("insulin", self.insulin),
-            ("cortisol", self.cortisol),
-        ])
+        HashMap::from([("insulin", self.insulin), ("cortisol", self.cortisol)])
     }
     fn boundary() -> AdmissibilityBoundary {
         boundary()
@@ -45,6 +42,7 @@ pub fn insulin_response() -> RepairOp {
         name: "insulin_response",
         applies_to: |v| v.subsystem == "endocrine" && v.variable == "insulin",
         apply: insulin_response_apply,
+        writes: &["endocrine.insulin", "metabolic.blood_glucose"],
     }
 }
 
@@ -54,7 +52,13 @@ impl Continuation for EndocrineClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         120.0 // 2 min
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, _inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         state.clone()
     }
 }
