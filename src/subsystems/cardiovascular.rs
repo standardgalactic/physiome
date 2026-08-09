@@ -42,14 +42,20 @@ impl ObservableBoundary for CardiovascularState {
     }
 }
 
-/// Baroreflex-style correction for low mean arterial pressure: raises
-/// both chronotropy (heart rate) and contractility (stroke volume);
-/// cardiac_output follows automatically since it's derived.
+/// Baroreflex-style correction for mean arterial pressure: raises
+/// chronotropy/contractility under hypotension and dampens them under
+/// hypertension; cardiac_output follows automatically since it's derived.
 fn baroreflex_apply(state: &PhysiologicalState, _v: &Violation) -> PhysiologicalState {
     let mut next = state.clone();
-    next.cardiovascular.heart_rate += 5.0;
-    next.cardiovascular.stroke_volume += 2.0;
-    next.cardiovascular.mean_arterial_pressure += 2.0;
+    if next.cardiovascular.mean_arterial_pressure < 70.0 {
+        next.cardiovascular.heart_rate += 5.0;
+        next.cardiovascular.stroke_volume += 2.0;
+        next.cardiovascular.mean_arterial_pressure += 2.0;
+    } else if next.cardiovascular.mean_arterial_pressure > 105.0 {
+        next.cardiovascular.heart_rate = (next.cardiovascular.heart_rate - 5.0).max(40.0);
+        next.cardiovascular.stroke_volume = (next.cardiovascular.stroke_volume - 2.0).max(40.0);
+        next.cardiovascular.mean_arterial_pressure -= 2.0;
+    }
     next
 }
 

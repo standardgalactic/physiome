@@ -35,6 +35,13 @@ fn run_scenario_from(
     (final_state, log.len())
 }
 
+fn map_after_hours(inputs: Inputs, hours: f64, seed: u64) -> f64 {
+    run_scenario(inputs, hours, seed)
+        .0
+        .cardiovascular
+        .mean_arterial_pressure
+}
+
 #[test]
 fn baseline_state_is_fully_admissible() {
     let state = PhysiologicalState::baseline();
@@ -203,6 +210,31 @@ fn renal_artery_stenosis_decouples_local_perfusion_from_systemic_pressure() {
 }
 
 #[test]
+fn renal_artery_stenosis_map_reaches_bounded_elevated_plateau() {
+    let baseline = PhysiologicalState::baseline();
+    let inputs = Inputs {
+        renal_artery_stenosis: 0.45,
+        ..Default::default()
+    };
+
+    let map_2h = map_after_hours(inputs.clone(), 2.0, 99);
+    let map_4h = map_after_hours(inputs.clone(), 4.0, 99);
+    let map_5h = map_after_hours(inputs, 5.0, 99);
+
+    assert!(
+        map_2h >= baseline.cardiovascular.mean_arterial_pressure,
+        "stenosis run should trend toward elevated MAP by 2h"
+    );
+    assert!(map_5h <= 120.0, "stenosis MAP should remain bounded");
+    assert!(
+        (map_5h - map_4h).abs() <= 2.0,
+        "late-horizon MAP should approach a plateau (4h={:.2}, 5h={:.2})",
+        map_4h,
+        map_5h
+    );
+}
+
+#[test]
 fn high_angii_input_raises_aldosterone_and_retains_volume() {
     let baseline = PhysiologicalState::baseline();
     let inputs = Inputs {
@@ -244,6 +276,23 @@ fn settle_helper_reduces_violations_from_scrambled_state() {
         "settle() should reduce total severity ({:.3} -> {:.3})",
         before_total_severity,
         after_total_severity
+    );
+}
+
+#[test]
+fn zero_mass_renal_gfr_violation_severity_is_finite() {
+    let mut state = PhysiologicalState::baseline();
+    state.renal.functioning_mass = 0.0;
+    state.renal.gfr = 40.0;
+
+    let renal_gfr = all_violations(&state)
+        .into_iter()
+        .find(|v| v.subsystem == "renal" && v.variable == "gfr")
+        .expect("expected renal gfr violation at zero mass");
+
+    assert!(
+        renal_gfr.severity.is_finite(),
+        "renal gfr severity should remain finite at zero mass"
     );
 }
 

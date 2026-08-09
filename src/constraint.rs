@@ -22,10 +22,11 @@ impl Constraint {
     /// variables with very different units (mmHg vs mEq/L vs mg/dL...).
     pub fn severity(&self, value: f64) -> f64 {
         let width = self.hi - self.lo;
+        let normalizer = if width.abs() < f64::EPSILON { 1.0 } else { width };
         if value < self.lo {
-            (self.lo - value) / width
+            (self.lo - value) / normalizer
         } else if value > self.hi {
-            (value - self.hi) / width
+            (value - self.hi) / normalizer
         } else {
             0.0
         }
