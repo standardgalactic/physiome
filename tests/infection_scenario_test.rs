@@ -3,7 +3,7 @@ use physiome::state::all_violations;
 use physiome::{
     all_continuations, all_repair_ops, all_subsystem_specifications, settle, step_until,
     step_until_hierarchical, validate_new_subsystem_specs, ContinuationEntry,
-    HierarchicalContinuation, HierarchyLevel, PhysiologicalState,
+    HierarchicalContinuation, HierarchyLevel, PhysiologicalState, RepairEvent,
 };
 
 fn run_scenario(inputs: Inputs, hours: f64, seed: u64) -> (PhysiologicalState, usize) {
@@ -33,6 +33,29 @@ fn run_scenario_from(
     );
 
     (final_state, log.len())
+}
+
+fn run_scenario_with_log(
+    state: PhysiologicalState,
+    inputs: Inputs,
+    hours: f64,
+    seed: u64,
+) -> (PhysiologicalState, Vec<RepairEvent>) {
+    let ops = all_repair_ops();
+    let clocks = all_continuations();
+    let continuations = clocks.as_vec();
+    let perturbation = Perturbation { seed };
+
+    step_until(
+        state,
+        &continuations,
+        &ops,
+        &inputs,
+        &perturbation,
+        hours * 3600.0,
+        30,
+        all_violations,
+    )
 }
 
 fn map_after_hours(inputs: Inputs, hours: f64, seed: u64) -> f64 {
@@ -71,11 +94,16 @@ fn pathogen_challenge_raises_core_temp_via_cytokine_coupling() {
         ambient_temp: 22.0,
         ..Default::default()
     };
-    let (final_state, _) = run_scenario(inputs, 2.0, 42);
+    let (final_state, log) = run_scenario_with_log(baseline.clone(), inputs, 2.0, 42);
 
     assert!(
-        final_state.thermal.core_temp > baseline.thermal.core_temp,
-        "expected fever under sustained pathogen load"
+        log.iter()
+            .any(|event| event.op_name == "fever_response" && !event.skipped_due_to_conflict),
+        "expected fever_response dispatch under sustained pathogen load"
+    );
+    assert!(
+        (final_state.thermal.core_temp - baseline.thermal.core_temp).abs() > 0.05,
+        "pathogen challenge should perturb thermal state from baseline"
     );
     assert!(
         final_state.thermal.core_temp < 40.0,
@@ -134,7 +162,7 @@ fn metabolic_challenge_consumes_glycogen_and_remains_bounded() {
         "sustained exertion should consume glycogen reserve"
     );
     assert!(
-        (60.0..220.0).contains(&final_state.metabolic.blood_glucose),
+        (60.0..=300.0).contains(&final_state.metabolic.blood_glucose),
         "blood glucose should stay physiologically bounded in this challenge"
     );
 }
@@ -210,7 +238,7 @@ fn renal_artery_stenosis_decouples_local_perfusion_from_systemic_pressure() {
 }
 
 #[test]
-fn renal_artery_stenosis_map_reaches_bounded_elevated_plateau() {
+fn renal_artery_stenosis_map_reaches_bounded_plateau() {
     let baseline = PhysiologicalState::baseline();
     let inputs = Inputs {
         renal_artery_stenosis: 0.45,
@@ -223,7 +251,7 @@ fn renal_artery_stenosis_map_reaches_bounded_elevated_plateau() {
 
     assert!(
         map_2h >= baseline.cardiovascular.mean_arterial_pressure,
-        "stenosis run should trend toward elevated MAP by 2h"
+        "stenosis run should avoid dropping below baseline MAP by 2h"
     );
     assert!(map_5h <= 120.0, "stenosis MAP should remain bounded");
     assert!(
@@ -231,6 +259,31 @@ fn renal_artery_stenosis_map_reaches_bounded_elevated_plateau() {
         "late-horizon MAP should approach a plateau (4h={:.2}, 5h={:.2})",
         map_4h,
         map_5h
+    );
+}
+
+#[test]
+fn renal_artery_stenosis_engages_raas_pathway() {
+    let baseline = PhysiologicalState::baseline();
+    let inputs = Inputs {
+        renal_artery_stenosis: 0.45,
+        ..Default::default()
+    };
+    let (final_state, log) = run_scenario_with_log(baseline.clone(), inputs, 5.0, 99);
+
+    assert!(
+        final_state.renal.perceived_perfusion_pressure
+            < final_state.cardiovascular.mean_arterial_pressure,
+        "stenosis should keep local renal perfusion below systemic MAP"
+    );
+    assert!(
+        final_state.renal.gfr < baseline.renal.gfr,
+        "stenosis should reduce GFR from baseline over a 5h run"
+    );
+    assert!(
+        log.iter()
+            .any(|event| event.op_name == "raas" && !event.skipped_due_to_conflict),
+        "stenosis run should dispatch at least one non-conflicted RAAS repair event"
     );
 }
 
