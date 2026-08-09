@@ -1,15 +1,15 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GiState {
     pub gastric_ph: f64,
-    pub motility_index: f64,       // relative rate, 1.0 = normal
-    pub luminal_glucose: f64,      // g, unabsorbed load in transit
-    pub absorption_rate: f64,      // g/min, current absorptive capacity
+    pub motility_index: f64,  // relative rate, 1.0 = normal
+    pub luminal_glucose: f64, // g, unabsorbed load in transit
+    pub absorption_rate: f64, // g/min, current absorptive capacity
 }
 
 pub fn boundary() -> AdmissibilityBoundary {
@@ -53,6 +53,7 @@ pub fn motility_correction() -> RepairOp {
         name: "motility_correction",
         applies_to: |v| v.subsystem == "gi" && v.variable == "motility_index",
         apply: motility_correction_apply,
+        writes: &["gi.motility_index"],
     }
 }
 
@@ -63,7 +64,13 @@ impl Continuation for GiClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         300.0 // 5 min
     }
-    fn advance(&self, state: &PhysiologicalState, dt: f64, inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        dt: f64,
+        inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         // A meal adds to the luminal load; absorption moves a portion
         // of it out each advance, feeding metabolic::blood_glucose.

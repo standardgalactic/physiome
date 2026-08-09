@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct HepaticState {
-    pub bilirubin: f64,      // mg/dL
-    pub albumin: f64,        // g/dL
-    pub ammonia: f64,        // umol/L
+    pub bilirubin: f64,        // mg/dL
+    pub albumin: f64,          // g/dL
+    pub ammonia: f64,          // umol/L
     pub clotting_factors: f64, // relative synthesis rate, 1.0 = normal
 }
 
@@ -49,6 +49,7 @@ pub fn urea_cycle_upregulation() -> RepairOp {
         name: "urea_cycle_upregulation",
         applies_to: |v| v.subsystem == "hepatic" && v.variable == "ammonia",
         apply: urea_cycle_upregulation_apply,
+        writes: &["hepatic.ammonia"],
     }
 }
 
@@ -66,6 +67,7 @@ pub fn synthetic_upregulation() -> RepairOp {
         name: "synthetic_upregulation",
         applies_to: |v| v.subsystem == "hepatic" && v.variable == "albumin",
         apply: synthetic_upregulation_apply,
+        writes: &["hepatic.albumin", "hepatic.clotting_factors"],
     }
 }
 
@@ -76,7 +78,13 @@ impl Continuation for HepaticClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         600.0 // 10 min
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, _inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         state.clone()
     }
 }

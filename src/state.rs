@@ -2,17 +2,25 @@
 //! observables. Immutable by convention — transitions produce a new
 //! PhysiologicalState rather than mutating an existing one.
 
-use crate::constraint::{detect_violations_for, Violation};
+use crate::constraint::{
+    collect_violations, detect_violations_for, detect_violations_for_stateful, Violation,
+};
 use crate::subsystems::cardiovascular::CardiovascularState;
 use crate::subsystems::endocrine::EndocrineState;
 use crate::subsystems::gi::GiState;
 use crate::subsystems::hematologic::HematologicState;
 use crate::subsystems::hepatic::HepaticState;
 use crate::subsystems::immune::ImmuneState;
+use crate::subsystems::integumentary::IntegumentaryState;
+use crate::subsystems::lymphatic::LymphaticState;
 use crate::subsystems::metabolic::MetabolicState;
+use crate::subsystems::microcirculation::MicrocirculationState;
+use crate::subsystems::musculoskeletal::MusculoskeletalState;
 use crate::subsystems::nervous::NervousState;
 use crate::subsystems::renal::RenalState;
+use crate::subsystems::reproductive::ReproductiveState;
 use crate::subsystems::respiratory::RespiratoryState;
+use crate::subsystems::skeletal::SkeletalState;
 use crate::subsystems::thermal::ThermalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -28,12 +36,15 @@ pub struct PhysiologicalState {
     pub metabolic: MetabolicState,
     pub respiratory: RespiratoryState,
     pub thermal: ThermalState,
-    /// Simulation time, in seconds, since t0.
+    pub microcirculation: MicrocirculationState,
+    pub lymphatic: LymphaticState,
+    pub musculoskeletal: MusculoskeletalState,
+    pub integumentary: IntegumentaryState,
+    pub skeletal: SkeletalState,
+    pub reproductive: ReproductiveState,
     pub t: f64,
 }
 
-/// A normal, admissible resting state across all eleven subsystems —
-/// the starting point for scenarios and tests.
 impl PhysiologicalState {
     pub fn baseline() -> Self {
         PhysiologicalState {
@@ -89,28 +100,59 @@ impl PhysiologicalState {
                 pao2: 95.0,
             },
             thermal: ThermalState { core_temp: 37.0 },
+            microcirculation: MicrocirculationState {
+                tissue_perfusion: 38.0,
+                oxygen_extraction: 0.30,
+                capillary_leak_index: 0.25,
+            },
+            lymphatic: LymphaticState {
+                lymph_flow: 2.2,
+                interstitial_volume: 12.2,
+                edema_index: 0.35,
+            },
+            musculoskeletal: MusculoskeletalState {
+                muscle_workload: 0.2,
+                fatigue_index: 0.2,
+                glycogen_reserve: 90.0,
+            },
+            integumentary: IntegumentaryState {
+                barrier_integrity: 0.92,
+                skin_perfusion: 0.7,
+                sweat_rate: 0.2,
+            },
+            skeletal: SkeletalState {
+                ionized_calcium: 1.22,
+                remodeling_signal: 1.0,
+                marrow_output: 1.0,
+            },
+            reproductive: ReproductiveState {
+                sex_hormone_index: 1.0,
+                cycle_phase: 0.5,
+                placental_flow: 1.0,
+            },
             t: 0.0,
         }
     }
 }
 
-/// Every subsystem's violations, collected in one call. This is the
-/// piece of wiring that has to know about all eleven subsystems by
-/// name — everything else in the engine (constraint.rs, repair.rs)
-/// stays domain-independent. Pass this as the `violations_after`
-/// closure to `repair::step_until`.
 pub fn all_violations(state: &PhysiologicalState) -> Vec<Violation> {
-    let mut v = Vec::new();
-    v.extend(detect_violations_for(&state.cardiovascular));
-    v.extend(detect_violations_for(&state.renal));
-    v.extend(detect_violations_for(&state.hepatic));
-    v.extend(detect_violations_for(&state.gi));
-    v.extend(detect_violations_for(&state.nervous));
-    v.extend(detect_violations_for(&state.immune));
-    v.extend(detect_violations_for(&state.hematologic));
-    v.extend(detect_violations_for(&state.endocrine));
-    v.extend(detect_violations_for(&state.metabolic));
-    v.extend(detect_violations_for(&state.respiratory));
-    v.extend(detect_violations_for(&state.thermal));
-    v
+    collect_violations(vec![
+        detect_violations_for(&state.cardiovascular),
+        detect_violations_for(&state.renal),
+        detect_violations_for(&state.hepatic),
+        detect_violations_for(&state.gi),
+        detect_violations_for(&state.nervous),
+        detect_violations_for(&state.immune),
+        detect_violations_for(&state.hematologic),
+        detect_violations_for(&state.endocrine),
+        detect_violations_for(&state.metabolic),
+        detect_violations_for(&state.respiratory),
+        detect_violations_for_stateful(&state.thermal, state),
+        detect_violations_for(&state.microcirculation),
+        detect_violations_for(&state.lymphatic),
+        detect_violations_for(&state.musculoskeletal),
+        detect_violations_for(&state.integumentary),
+        detect_violations_for(&state.skeletal),
+        detect_violations_for(&state.reproductive),
+    ])
 }

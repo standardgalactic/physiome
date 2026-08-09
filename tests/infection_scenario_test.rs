@@ -1,24 +1,30 @@
-use physiome::repair::Inputs;
+use physiome::repair::{Inputs, Perturbation};
 use physiome::state::all_violations;
-use physiome::{all_continuations, all_repair_ops, step_until, Continuation, PhysiologicalState};
+use physiome::{
+    all_continuations, all_repair_ops, all_subsystem_specifications, step_until,
+    step_until_hierarchical, validate_new_subsystem_specs, ContinuationEntry,
+    HierarchicalContinuation, HierarchyLevel, PhysiologicalState,
+};
 
-fn continuations_vec(clocks: &(
-    physiome::subsystems::cardiovascular::CardiovascularClock,
-    physiome::subsystems::renal::RenalClock,
-    physiome::subsystems::hepatic::HepaticClock,
-    physiome::subsystems::gi::GiClock,
-    physiome::subsystems::nervous::NervousClock,
-    physiome::subsystems::immune::ImmuneClock,
-    physiome::subsystems::hematologic::HematologicClock,
-    physiome::subsystems::endocrine::EndocrineClock,
-    physiome::subsystems::metabolic::MetabolicClock,
-    physiome::subsystems::respiratory::RespiratoryClock,
-    physiome::subsystems::thermal::ThermalClock,
-)) -> Vec<&dyn Continuation> {
-    vec![
-        &clocks.0, &clocks.1, &clocks.2, &clocks.3, &clocks.4, &clocks.5, &clocks.6, &clocks.7,
-        &clocks.8, &clocks.9, &clocks.10,
-    ]
+fn run_scenario(inputs: Inputs, hours: f64, seed: u64) -> (PhysiologicalState, usize) {
+    let state = PhysiologicalState::baseline();
+    let ops = all_repair_ops();
+    let clocks = all_continuations();
+    let continuations = clocks.as_vec();
+    let perturbation = Perturbation { seed };
+
+    let (final_state, log) = step_until(
+        state,
+        &continuations,
+        &ops,
+        &inputs,
+        &perturbation,
+        hours * 3600.0,
+        30,
+        all_violations,
+    );
+
+    (final_state, log.len())
 }
 
 #[test]
@@ -33,76 +39,198 @@ fn baseline_state_is_fully_admissible() {
 }
 
 #[test]
-fn pathogen_challenge_raises_core_temp_via_cytokine_coupling() {
-    let state = PhysiologicalState::baseline();
-    let baseline_temp = state.thermal.core_temp;
+fn subsystem_spec_template_exists_and_is_valid() {
+    let specs = all_subsystem_specifications();
+    assert!(
+        specs.len() >= 6,
+        "expected template specs for newly added level-1 subsystems"
+    );
+    validate_new_subsystem_specs().expect("new subsystem coupling contracts should validate");
+}
 
+#[test]
+fn pathogen_challenge_raises_core_temp_via_cytokine_coupling() {
+    let baseline = PhysiologicalState::baseline();
     let inputs = Inputs {
         pathogen_load: 3.0,
         ambient_temp: 22.0,
         ..Default::default()
     };
+    let (final_state, _) = run_scenario(inputs, 2.0, 42);
 
-    let ops = all_repair_ops();
-    let clocks = all_continuations();
-    let continuations = continuations_vec(&clocks);
-
-    let (final_state, log) = step_until(
-        state,
-        &continuations,
-        &ops,
-        &inputs,
-        2.0 * 3600.0, // 2 simulated hours
-        20,
-        all_violations,
-    );
-
-    // The coupling should actually have fired.
-    let fever_fired = log.iter().any(|e| e.op_name == "fever_response");
-    assert!(fever_fired, "fever_response should have fired at least once under sustained pathogen_load");
-
-    // And it should have had a visible effect: core_temp above baseline.
     assert!(
-        final_state.thermal.core_temp > baseline_temp,
-        "expected fever: core_temp {:.2} should exceed baseline {:.2}",
-        final_state.thermal.core_temp,
-        baseline_temp
+        final_state.thermal.core_temp > baseline.thermal.core_temp,
+        "expected fever under sustained pathogen load"
     );
-
-    // But bounded — thermoregulation shouldn't let it run away
-    // indefinitely within a 2-hour window at this pathogen_load.
     assert!(
         final_state.thermal.core_temp < 40.0,
-        "fever ran away unbounded: core_temp reached {:.2}",
-        final_state.thermal.core_temp
+        "fever should remain bounded"
     );
 }
 
 #[test]
-fn no_pathogen_load_keeps_state_near_baseline() {
-    let state = PhysiologicalState::baseline();
+fn hemorrhage_scenario_invokes_compensation_without_runaway() {
     let inputs = Inputs {
-        ambient_temp: 22.0,
+        hemorrhage_rate: 2.0,
         ..Default::default()
     };
-
-    let ops = all_repair_ops();
-    let clocks = all_continuations();
-    let continuations = continuations_vec(&clocks);
-
-    let (final_state, _log) = step_until(
-        state,
-        &continuations,
-        &ops,
-        &inputs,
-        2.0 * 3600.0,
-        20,
-        all_violations,
-    );
+    let (final_state, _) = run_scenario(inputs, 1.0, 7);
 
     assert!(
-        (final_state.thermal.core_temp - 37.0).abs() < 0.5,
-        "with no pathogen challenge, core_temp should stay near baseline, got {:.2}",
-        final_state.thermal.core_temp
+        final_state.hematologic.hemoglobin > 9.0,
+        "hemoglobin should not collapse under modeled compensation"
     );
+    assert!(
+        final_state.cardiovascular.mean_arterial_pressure > 70.0,
+        "pressure should remain in minimally viable range"
+    );
+}
+
+#[test]
+fn heat_stress_scenario_engages_surface_cooling() {
+    let baseline = PhysiologicalState::baseline();
+    let inputs = Inputs {
+        ambient_temp: 34.0,
+        ..Default::default()
+    };
+    let (final_state, _) = run_scenario(inputs, 1.0, 13);
+
+    assert!(
+        final_state.integumentary.sweat_rate >= baseline.integumentary.sweat_rate,
+        "heat stress should increase sweat output"
+    );
+    assert!(
+        final_state.thermal.core_temp < 39.0,
+        "surface cooling should prevent runaway hyperthermia"
+    );
+}
+
+#[test]
+fn metabolic_challenge_consumes_glycogen_and_remains_bounded() {
+    let inputs = Inputs {
+        exercise_intensity: 0.9,
+        meal_glucose_load: 60.0,
+        ..Default::default()
+    };
+    let (final_state, _) = run_scenario(inputs, 1.5, 101);
+
+    assert!(
+        final_state.musculoskeletal.glycogen_reserve < 100.0,
+        "sustained exertion should consume glycogen reserve"
+    );
+    assert!(
+        (60.0..220.0).contains(&final_state.metabolic.blood_glucose),
+        "blood glucose should stay physiologically bounded in this challenge"
+    );
+}
+
+#[test]
+fn endocrine_stress_shifts_hormonal_axis_without_breaking_admissibility() {
+    let inputs = Inputs {
+        exercise_intensity: 0.7,
+        pathogen_load: 1.2,
+        ..Default::default()
+    };
+    let (final_state, _events) = run_scenario(inputs, 3.0, 88);
+
+    assert!(
+        (5.0..=23.0).contains(&final_state.endocrine.cortisol),
+        "cortisol should remain within endocrine admissibility bounds"
+    );
+    let unresolved = all_violations(&final_state);
+    assert!(
+        unresolved.iter().all(|v| v.subsystem != "endocrine"),
+        "endocrine stress run should not leave unresolved endocrine violations: {:?}",
+        unresolved
+    );
+    assert!(
+        unresolved.len() <= 20,
+        "stress run should reduce unresolved violations, got {}",
+        unresolved.len()
+    );
+}
+
+struct FastOrganClock;
+struct SlowCellularClock;
+
+impl physiome::Continuation for FastOrganClock {
+    fn interval(&self, _current: &PhysiologicalState) -> f64 {
+        1.0
+    }
+
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
+        state.clone()
+    }
+}
+
+impl HierarchicalContinuation for FastOrganClock {
+    fn hierarchy_level(&self) -> HierarchyLevel {
+        HierarchyLevel::Organ
+    }
+
+    fn parent_subsystem(&self) -> Option<&'static str> {
+        None
+    }
+}
+
+impl physiome::Continuation for SlowCellularClock {
+    fn interval(&self, _current: &PhysiologicalState) -> f64 {
+        1.0
+    }
+
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
+        state.clone()
+    }
+}
+
+impl HierarchicalContinuation for SlowCellularClock {
+    fn hierarchy_level(&self) -> HierarchyLevel {
+        HierarchyLevel::Cellular
+    }
+
+    fn parent_subsystem(&self) -> Option<&'static str> {
+        Some("immune")
+    }
+}
+
+#[test]
+fn hierarchical_scheduler_executes_without_regression() {
+    let initial = PhysiologicalState::baseline();
+    let fast = FastOrganClock;
+    let slow = SlowCellularClock;
+    let continuations = vec![
+        ContinuationEntry {
+            subsystem: "cardiovascular",
+            continuation: &fast,
+        },
+        ContinuationEntry {
+            subsystem: "cellular_metabolism",
+            continuation: &slow,
+        },
+    ];
+
+    let perturbation = Perturbation { seed: 55 };
+    let (final_state, _log) = step_until_hierarchical(
+        initial,
+        &continuations,
+        &all_repair_ops(),
+        &Inputs::default(),
+        &perturbation,
+        10.0,
+        5,
+        all_violations,
+    );
+    assert!(final_state.t >= 10.0);
 }

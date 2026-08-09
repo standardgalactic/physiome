@@ -59,6 +59,14 @@ pub trait ObservableBoundary {
     fn subsystem_name() -> &'static str;
 }
 
+/// Optional extension for subsystems whose admissible boundaries depend
+/// on whole-body context (state-dependent set points).
+pub trait StatefulObservableBoundary<S> {
+    fn observables(&self) -> HashMap<&'static str, f64>;
+    fn boundary_for(state: &S) -> AdmissibilityBoundary;
+    fn subsystem_name() -> &'static str;
+}
+
 pub fn detect_violations(
     boundary: &AdmissibilityBoundary,
     subsystem: &'static str,
@@ -83,6 +91,17 @@ pub fn detect_violations(
 /// boundary function by hand.
 pub fn detect_violations_for<S: ObservableBoundary>(state: &S) -> Vec<Violation> {
     detect_violations(&S::boundary(), S::subsystem_name(), &state.observables())
+}
+
+pub fn detect_violations_for_stateful<S, C>(state: &S, context: &C) -> Vec<Violation>
+where
+    S: StatefulObservableBoundary<C>,
+{
+    detect_violations(
+        &S::boundary_for(context),
+        S::subsystem_name(),
+        &state.observables(),
+    )
 }
 
 /// Convenience: run detect_violations_for across every subsystem in the

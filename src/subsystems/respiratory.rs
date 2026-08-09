@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -49,6 +49,7 @@ pub fn ventilation_response() -> RepairOp {
         name: "ventilation_response",
         applies_to: |v| v.subsystem == "respiratory" && v.variable == "paco2",
         apply: ventilation_response_apply,
+        writes: &["respiratory.paco2", "respiratory.blood_ph"],
     }
 }
 
@@ -60,7 +61,13 @@ impl Continuation for RespiratoryClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         4.0
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         next.respiratory.paco2 += 0.5 * inputs.exercise_intensity;
         next

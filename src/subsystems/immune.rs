@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct ImmuneState {
-    pub wbc_count: f64,       // cells/uL, thousands
-    pub cytokine_level: f64,  // relative, 0.0 = baseline
-    pub crp: f64,             // mg/L, C-reactive protein
+    pub wbc_count: f64,      // cells/uL, thousands
+    pub cytokine_level: f64, // relative, 0.0 = baseline
+    pub crp: f64,            // mg/L, C-reactive protein
 }
 
 pub fn boundary() -> AdmissibilityBoundary {
@@ -50,7 +50,9 @@ fn immune_resolution_apply(state: &PhysiologicalState, v: &Violation) -> Physiol
     let mut next = state.clone();
     match v.variable {
         "wbc_count" => next.immune.wbc_count -= 1.0,
-        "cytokine_level" => next.immune.cytokine_level = (next.immune.cytokine_level - 0.04).max(0.0),
+        "cytokine_level" => {
+            next.immune.cytokine_level = (next.immune.cytokine_level - 0.04).max(0.0)
+        }
         "crp" => next.immune.crp -= 1.0,
         _ => {}
     }
@@ -62,9 +64,12 @@ pub fn immune_resolution() -> RepairOp {
         name: "immune_resolution",
         applies_to: |v| {
             v.subsystem == "immune"
-                && (v.variable == "wbc_count" || v.variable == "cytokine_level" || v.variable == "crp")
+                && (v.variable == "wbc_count"
+                    || v.variable == "cytokine_level"
+                    || v.variable == "crp")
         },
         apply: immune_resolution_apply,
+        writes: &["immune.wbc_count", "immune.cytokine_level", "immune.crp"],
     }
 }
 
@@ -87,6 +92,7 @@ pub fn fever_response() -> RepairOp {
         name: "fever_response",
         applies_to: |v| v.subsystem == "immune" && v.variable == "cytokine_level",
         apply: fever_response_apply,
+        writes: &["thermal.core_temp"],
     }
 }
 
@@ -98,7 +104,13 @@ impl Continuation for ImmuneClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         300.0 // 5 min
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         let mut next = state.clone();
         // The disease process: pathogen_load continuously drives all
         // three inflammatory markers up. immune_resolution (above) is

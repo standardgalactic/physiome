@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -20,10 +20,7 @@ pub fn boundary() -> AdmissibilityBoundary {
 
 impl ObservableBoundary for RenalState {
     fn observables(&self) -> HashMap<&'static str, f64> {
-        HashMap::from([
-            ("gfr", self.gfr),
-            ("plasma_sodium", self.plasma_sodium),
-        ])
+        HashMap::from([("gfr", self.gfr), ("plasma_sodium", self.plasma_sodium)])
     }
     fn boundary() -> AdmissibilityBoundary {
         boundary()
@@ -48,6 +45,7 @@ pub fn raas() -> RepairOp {
         name: "raas",
         applies_to: |v| v.subsystem == "renal" && v.variable == "gfr",
         apply: raas_apply,
+        writes: &["renal.plasma_sodium", "renal.plasma_volume", "renal.gfr"],
     }
 }
 
@@ -58,7 +56,13 @@ impl Continuation for RenalClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         900.0 // 15 min
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, _inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         state.clone()
     }
 }

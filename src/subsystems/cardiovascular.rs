@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
-use crate::repair::{Continuation, Inputs, RepairOp};
+use crate::repair::{Continuation, Inputs, Perturbation, RepairOp};
 use crate::state::PhysiologicalState;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -9,9 +9,9 @@ pub struct CardiovascularState {
     pub mean_arterial_pressure: f64, // mmHg
     pub heart_rate: f64,             // bpm
     pub stroke_volume: f64,          // mL
-    // cardiac_output is NOT stored: it's a pure function of heart_rate
-    // and stroke_volume. Storing it separately would let the two
-    // fall out of sync, so it's derived on demand instead.
+                                     // cardiac_output is NOT stored: it's a pure function of heart_rate
+                                     // and stroke_volume. Storing it separately would let the two
+                                     // fall out of sync, so it's derived on demand instead.
 }
 
 impl CardiovascularState {
@@ -58,6 +58,11 @@ pub fn baroreflex() -> RepairOp {
         name: "baroreflex",
         applies_to: |v| v.subsystem == "cardiovascular" && v.variable == "mean_arterial_pressure",
         apply: baroreflex_apply,
+        writes: &[
+            "cardiovascular.heart_rate",
+            "cardiovascular.stroke_volume",
+            "cardiovascular.mean_arterial_pressure",
+        ],
     }
 }
 
@@ -68,7 +73,13 @@ impl Continuation for CardiovascularClock {
     fn interval(&self, _current: &PhysiologicalState) -> f64 {
         1.0
     }
-    fn advance(&self, state: &PhysiologicalState, _dt: f64, _inputs: &Inputs) -> PhysiologicalState {
+    fn advance(
+        &self,
+        state: &PhysiologicalState,
+        _dt: f64,
+        _inputs: &Inputs,
+        _perturbation: &Perturbation,
+    ) -> PhysiologicalState {
         // Passive drift toward baseline in the absence of a violation
         // triggering an active repair op; illustrative only.
         state.clone()

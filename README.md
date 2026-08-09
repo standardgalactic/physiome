@@ -12,14 +12,17 @@ src/
   constraint.rs     Constraint, AdmissibilityBoundary, ObservableBoundary (domain-independent engine)
   repair.rs         RepairOp, step(), Continuation trait, step_until() scheduler (domain-independent engine)
   state.rs          PhysiologicalState struct-of-structs, baseline(), all_violations()
+  specification.rs  subsystem template metadata + coupling contract checks
   subsystems/
     cardiovascular.rs, renal.rs, hepatic.rs, gi.rs, nervous.rs,
     immune.rs, hematologic.rs, endocrine.rs, metabolic.rs,
-    respiratory.rs, thermal.rs
+    respiratory.rs, thermal.rs, microcirculation.rs, lymphatic.rs,
+    musculoskeletal.rs, integumentary.rs, skeletal.rs, reproductive.rs
 examples/
-  infection_scenario.rs   a runnable pathogen-challenge scenario
+  infection_scenario.rs, hemorrhage_scenario.rs, heat_stress_scenario.rs,
+  metabolic_challenge_scenario.rs, endocrine_stress_scenario.rs
 tests/
-  infection_scenario_test.rs   baseline admissibility, no-challenge stability, fever coupling
+  infection_scenario_test.rs   baseline admissibility + scenario invariants
 ```
 
 ## Design
@@ -35,17 +38,21 @@ Cross-subsystem coupling happens only through the shared `PhysiologicalState`: a
 
 ## Running it
 
-```
+```bash
 cargo build
 cargo run --example infection_scenario
+cargo run --example hemorrhage_scenario
+cargo run --example heat_stress_scenario
+cargo run --example metabolic_challenge_scenario
+cargo run --example endocrine_stress_scenario
 cargo test
 ```
 
-The example runs a four-hour pathogen challenge from a healthy baseline and prints the repair log and final state. The tests assert that `baseline()` starts fully admissible, that a zero-pathogen run stays near baseline, and that a sustained challenge both raises `core_temp` (fever) and keeps it bounded rather than runaway.
+The examples run reproducible stress scenarios from a healthy baseline and print final state summaries. The tests assert baseline admissibility, validate subsystem specification/coupling contracts, and enforce scenario-level physiological invariants.
 
 ## Current subsystems
 
-Eleven are implemented: cardiovascular, renal, hepatic, gastrointestinal, nervous (autonomic), immune, hematologic, endocrine, metabolic, respiratory, and thermal. Each carries its own admissible ranges, at least one repair operator, and its own clock.
+Seventeen are implemented: cardiovascular, renal, hepatic, gastrointestinal, nervous (autonomic), immune, hematologic, endocrine, metabolic, respiratory, thermal, microcirculation, lymphatic, musculoskeletal, integumentary, skeletal, and reproductive. Each carries its own admissible ranges, at least one repair operator, and its own clock.
 
 ## Status and roadmap
 
