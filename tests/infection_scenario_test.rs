@@ -134,12 +134,17 @@ fn endocrine_stress_shifts_hormonal_axis_without_breaking_admissibility() {
     let (final_state, _events) = run_scenario(inputs, 3.0, 88);
 
     assert!(
-        final_state.endocrine.cortisol >= 5.0,
-        "cortisol should remain in non-depleted range"
+        (5.0..=23.0).contains(&final_state.endocrine.cortisol),
+        "cortisol should remain within endocrine admissibility bounds"
     );
     let unresolved = all_violations(&final_state);
     assert!(
-        unresolved.len() < 25,
+        unresolved.iter().all(|v| v.subsystem != "endocrine"),
+        "endocrine stress run should not leave unresolved endocrine violations: {:?}",
+        unresolved
+    );
+    assert!(
+        unresolved.len() <= 20,
         "stress run should reduce unresolved violations, got {}",
         unresolved.len()
     );

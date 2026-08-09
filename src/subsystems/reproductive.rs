@@ -45,7 +45,7 @@ fn hormone_normalization_apply(state: &PhysiologicalState, _v: &Violation) -> Ph
     next
 }
 
-fn placental_perfursion_support_apply(
+fn placental_perfusion_support_apply(
     state: &PhysiologicalState,
     _v: &Violation,
 ) -> PhysiologicalState {
@@ -64,16 +64,21 @@ pub fn hormone_normalization() -> RepairOp {
     }
 }
 
-pub fn placental_perfursion_support() -> RepairOp {
+pub fn placental_perfusion_support() -> RepairOp {
     RepairOp {
-        name: "placental_perfursion_support",
+        name: "placental_perfusion_support",
         applies_to: |v| v.subsystem == "reproductive" && v.variable == "placental_flow",
-        apply: placental_perfursion_support_apply,
+        apply: placental_perfusion_support_apply,
         writes: &[
             "reproductive.placental_flow",
             "cardiovascular.mean_arterial_pressure",
         ],
     }
+}
+
+#[deprecated(note = "use placental_perfusion_support")]
+pub fn placental_perfursion_support() -> RepairOp {
+    placental_perfusion_support()
 }
 
 pub struct ReproductiveClock;
@@ -133,7 +138,7 @@ const REPAIRS: [RepairSpec; 2] = [
     },
     RepairSpec {
         subsystem: "reproductive",
-        name: "placental_perfursion_support",
+        name: "placental_perfusion_support",
         triggers: &["reproductive.placental_flow"],
         reads: &["cardiovascular.mean_arterial_pressure"],
         writes: &[

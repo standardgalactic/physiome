@@ -51,7 +51,7 @@ pub fn all_repair_ops() -> Vec<RepairOp> {
         skeletal::calcium_buffering(),
         skeletal::marrow_support(),
         reproductive::hormone_normalization(),
-        reproductive::placental_perfursion_support(),
+        reproductive::placental_perfusion_support(),
     ]
 }
 
