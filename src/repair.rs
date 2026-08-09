@@ -90,6 +90,8 @@ pub struct Inputs {
     pub ambient_temp: f64,
     pub pathogen_load: f64,
     pub hemorrhage_rate: f64,
+    pub renal_artery_stenosis: f64, // 0.0-1.0 flow restriction
+    pub exogenous_angiotensin_ii: f64, // exogenous agonist dose (relative units)
 }
 
 /// Deterministic perturbation source. Kept explicit so runs are
@@ -223,6 +225,34 @@ pub fn step_until_hierarchical(
         let (repaired, mut events) = step(&state, ops, violations, max_repair_iterations);
         state = repaired;
         log.append(&mut events);
+    }
+
+    (state, log)
+}
+
+pub fn settle(
+    mut state: PhysiologicalState,
+    ops: &[RepairOp],
+    max_passes: usize,
+    max_repair_iterations: usize,
+    violations_after: impl Fn(&PhysiologicalState) -> Vec<Violation>,
+) -> (PhysiologicalState, Vec<RepairEvent>) {
+    let mut log = Vec::new();
+
+    for _ in 0..max_passes {
+        let violations = violations_after(&state);
+        if violations.is_empty() {
+            break;
+        }
+        let before = violations.len();
+        let (next, mut events) = step(&state, ops, violations, max_repair_iterations);
+        let after = violations_after(&next).len();
+        state = next;
+        log.append(&mut events);
+
+        if after >= before {
+            break;
+        }
     }
 
     (state, log)

@@ -10,7 +10,7 @@ pub mod subsystems;
 
 pub use constraint::{AdmissibilityBoundary, Constraint, ObservableBoundary, Violation};
 pub use repair::{
-    step, step_until, step_until_hierarchical, Continuation, ContinuationEntry,
+    settle, step, step_until, step_until_hierarchical, Continuation, ContinuationEntry,
     HierarchicalContinuation, HierarchyLevel, Inputs, Perturbation, RepairEvent, RepairOp,
 };
 pub use specification::{
@@ -123,6 +123,7 @@ pub fn all_continuations() -> AllContinuations {
 
 pub fn all_subsystem_specifications() -> Vec<SubsystemSpecification> {
     vec![
+        renal::specification(),
         microcirculation::specification(),
         lymphatic::specification(),
         musculoskeletal::specification(),
@@ -134,6 +135,14 @@ pub fn all_subsystem_specifications() -> Vec<SubsystemSpecification> {
 
 pub fn all_coupling_contracts() -> Vec<CouplingContract> {
     vec![
+        CouplingContract {
+            subsystem: "renal",
+            allowed_reads: &[
+                "cardiovascular.mean_arterial_pressure",
+                "endocrine.aldosterone",
+            ],
+            allowed_writes: &["cardiovascular.mean_arterial_pressure"],
+        },
         CouplingContract {
             subsystem: "microcirculation",
             allowed_reads: &[

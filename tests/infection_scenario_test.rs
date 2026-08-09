@@ -1,13 +1,21 @@
 use physiome::repair::{Inputs, Perturbation};
 use physiome::state::all_violations;
 use physiome::{
-    all_continuations, all_repair_ops, all_subsystem_specifications, step_until,
+    all_continuations, all_repair_ops, all_subsystem_specifications, settle, step_until,
     step_until_hierarchical, validate_new_subsystem_specs, ContinuationEntry,
     HierarchicalContinuation, HierarchyLevel, PhysiologicalState,
 };
 
 fn run_scenario(inputs: Inputs, hours: f64, seed: u64) -> (PhysiologicalState, usize) {
-    let state = PhysiologicalState::baseline();
+    run_scenario_from(PhysiologicalState::baseline(), inputs, hours, seed)
+}
+
+fn run_scenario_from(
+    state: PhysiologicalState,
+    inputs: Inputs,
+    hours: f64,
+    seed: u64,
+) -> (PhysiologicalState, usize) {
     let ops = all_repair_ops();
     let clocks = all_continuations();
     let continuations = clocks.as_vec();
@@ -147,6 +155,95 @@ fn endocrine_stress_shifts_hormonal_axis_without_breaking_admissibility() {
         unresolved.len() <= 20,
         "stress run should reduce unresolved violations, got {}",
         unresolved.len()
+    );
+}
+
+#[test]
+fn nephrectomy_half_mass_uses_scaled_renal_admissibility() {
+    let mut state = PhysiologicalState::baseline();
+    state.renal.functioning_mass = 0.5;
+    state.renal.gfr = 52.0;
+
+    let (final_state, _) = run_scenario_from(state, Inputs::default(), 3.0, 2026);
+    let unresolved = all_violations(&final_state);
+
+    assert!(
+        final_state.renal.gfr < 90.0,
+        "half-mass renal state should not be forced to healthy two-kidney GFR"
+    );
+    assert!(
+        unresolved.iter().all(|v| {
+            !(v.subsystem == "renal"
+                && v.variable == "gfr"
+                && (45.0..=60.0).contains(&final_state.renal.gfr))
+        }),
+        "scaled renal boundary should treat half-mass GFR as admissible, got {:?}",
+        unresolved
+    );
+}
+
+#[test]
+fn renal_artery_stenosis_decouples_local_perfusion_from_systemic_pressure() {
+    let baseline = PhysiologicalState::baseline();
+    let inputs = Inputs {
+        renal_artery_stenosis: 0.45,
+        ..Default::default()
+    };
+    let (final_state, _) = run_scenario(inputs, 2.0, 99);
+
+    assert!(
+        final_state.renal.perceived_perfusion_pressure
+            < final_state.cardiovascular.mean_arterial_pressure,
+        "stenosis should make local renal perfusion lower than systemic MAP"
+    );
+    assert!(
+        final_state.cardiovascular.mean_arterial_pressure >= baseline.cardiovascular.mean_arterial_pressure,
+        "RAAS compensation under stenosis should avoid systemic hypotension in this sketch"
+    );
+}
+
+#[test]
+fn high_angii_input_raises_aldosterone_and_retains_volume() {
+    let baseline = PhysiologicalState::baseline();
+    let inputs = Inputs {
+        exogenous_angiotensin_ii: 2.0,
+        ..Default::default()
+    };
+    let (final_state, _) = run_scenario(inputs, 2.0, 314);
+
+    assert!(
+        final_state.endocrine.aldosterone > baseline.endocrine.aldosterone,
+        "exogenous Ang II should increase aldosterone"
+    );
+    assert!(
+        final_state.renal.plasma_volume >= baseline.renal.plasma_volume,
+        "Ang II/aldosterone drive should not deplete renal plasma volume"
+    );
+}
+
+#[test]
+fn settle_helper_reduces_violations_from_scrambled_state() {
+    let mut scrambled = PhysiologicalState::baseline();
+    scrambled.cardiovascular.mean_arterial_pressure = 55.0;
+    scrambled.renal.gfr = 35.0;
+    scrambled.immune.cytokine_level = 0.8;
+    scrambled.thermal.core_temp = 35.8;
+
+    let before_violations = all_violations(&scrambled);
+    let before_total_severity: f64 = before_violations.iter().map(|v| v.severity).sum();
+    let (settled, log) = settle(scrambled, &all_repair_ops(), 25, 25, all_violations);
+    let after_violations = all_violations(&settled);
+    let after_total_severity: f64 = after_violations.iter().map(|v| v.severity).sum();
+
+    assert!(
+        !log.is_empty(),
+        "settle() should dispatch at least one repair event"
+    );
+    assert!(
+        after_total_severity < before_total_severity,
+        "settle() should reduce total severity ({:.3} -> {:.3})",
+        before_total_severity,
+        after_total_severity
     );
 }
 
